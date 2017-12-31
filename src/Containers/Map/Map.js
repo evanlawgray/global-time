@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {PropTypes} from 'prop-types';
 
 import GoogleMapsLoader from 'google-maps';
 
@@ -10,19 +9,21 @@ class Map extends Component {
     super(props);
 
     this.state = {
-      markers: [],
+      marker: undefined,
+      markerData: [],
       infoWindowOpen: false
     }
   }
 
   saveMarker() {
     const placeName = document.getElementById('placeInput').value;
-    const namedMarker = Object.assign({}, this.state.markers[0], {name: placeName});
-    this.setState({markers: [namedMarker]});
+    const namedMarker = Object.assign({}, this.state.markerData[0], {name: placeName});
+    this.setState({markerData: [namedMarker]});
   }
 
-  componentDidUpdate() {
-    console.log('MARKERS:', this.state.markers)
+  clearMarker() {
+    this.state.marker && this.state.marker.setMap(null);
+    this.setState({marker: {}, markerData: []});
   }
 
   componentDidMount() {
@@ -44,21 +45,21 @@ class Map extends Component {
       });
 
       google.maps.event.addListener(map, 'click', event => {
-        if(this.state.markers.length) return;
+        if(this.state.marker) return;
 
         const newMarker = new google.maps.Marker({
           map: map,
           position: event.latLng
         });
 
+        this.setState({
+          marker: newMarker
+        });
+
         google.maps.event.addListener(newMarker, 'click', () => {
           const form = document.createElement('form');
           form.appendChild(document.createElement('input'));
           form.setAttribute('id', 'form');
-
-          // const infoWindow = new google.maps.InfoWindow({
-          //   content: form
-          // })
 
           infoWindow.open(map, newMarker);
           this.setState({infoWindowOpen: true})
@@ -69,7 +70,7 @@ class Map extends Component {
           lng: newMarker.getPosition().lng()
         };
 
-        this.setState({markers: [markerInfo]});
+        this.setState({markerData: [markerInfo]});
       });
     });
   }
@@ -92,12 +93,12 @@ class Map extends Component {
 
           <div className={styles.buttonContainer}>
             <button onClick={() => this.saveMarker()}>Save Marker</button>
-            <button>Clear Marker</button>
+
+            <button onClick={() => this.clearMarker()}>Clear Marker</button>
           </div>
         </aside>
 
-        <div id="map" className={styles.map}>
-        </div>
+        <div id="map" className={styles.map}></div>
 
         <form
           id="form"
