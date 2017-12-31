@@ -1,0 +1,9 @@
+.selectionArea {
+  height: 600px;
+  width: 100%;
+  background: #F0F0F0;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  align-items: center;
+}
