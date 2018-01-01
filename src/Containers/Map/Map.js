@@ -7,8 +7,6 @@ import GoogleMapsLoader from 'google-maps';
 
 import styles from './styles.css';
 
-import {locationsCursor} from '../../Baobab/state';
-
 class Map extends Component {
   constructor(props) {
     super(props);
@@ -31,12 +29,9 @@ class Map extends Component {
 
   clearMarker() {
     this.state.marker && this.state.marker.setMap(null);
-    this.setState({marker: undefined, markerData: []});
+    this.setState({marker: undefined, markerData: [], locationName: undefined});
   }
 
-  componentDidUpdate() {
-    console.log(this.state);
-  }
   componentDidMount() {
     GoogleMapsLoader.KEY = 'AIzaSyAfbJWinFTCqp353FFt0tjygBFh57-FmXY';
 
