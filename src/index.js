@@ -4,5 +4,10 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import {root} from 'baobab-react/higher-order';
+import tree from './Baobab/state';
+
+const RootedApp = root(tree, App);
+
+ReactDOM.render(<RootedApp />, document.getElementById('root'));
 registerServiceWorker();

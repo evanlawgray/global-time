@@ -1,8 +1,13 @@
 import React, {Component} from 'react';
 
+import {branch} from 'baobab-react/higher-order';
+import {addLocation} from '../../Baobab/actions';
+
 import GoogleMapsLoader from 'google-maps';
 
 import styles from './styles.css';
+
+import {locationsCursor} from '../../Baobab/state';
 
 class Map extends Component {
   constructor(props) {
@@ -11,21 +16,27 @@ class Map extends Component {
     this.state = {
       marker: undefined,
       markerData: [],
+      locationName: undefined,
       infoWindowOpen: false
     }
   }
 
   saveMarker() {
-    const placeName = document.getElementById('placeInput').value;
-    const namedMarker = Object.assign({}, this.state.markerData[0], {name: placeName});
-    this.setState({markerData: [namedMarker]});
+    const namedMarker = Object.assign({}, this.state.markerData[0], {name: this.state.locationName});
+    this.props.dispatch(
+      addLocation,
+      namedMarker
+    );
   }
 
   clearMarker() {
     this.state.marker && this.state.marker.setMap(null);
-    this.setState({marker: {}, markerData: []});
+    this.setState({marker: undefined, markerData: []});
   }
 
+  componentDidUpdate() {
+    console.log(this.state);
+  }
   componentDidMount() {
     GoogleMapsLoader.KEY = 'AIzaSyAfbJWinFTCqp353FFt0tjygBFh57-FmXY';
 
@@ -104,7 +115,12 @@ class Map extends Component {
           id="form"
           style={infoWindowOpen ? {display: 'inline'} : {display: 'none'}}
         >
-          <input id="placeInput" type="text"></input>
+          <input
+            id="placeInput"
+            type="text"
+            value={this.state.location}
+            onChange={(e) => this.setState({locationName: e.target.value})}
+          />
         </form>
 
       </div>
@@ -112,4 +128,6 @@ class Map extends Component {
   }
 }
 
-export default Map;
+export default branch({
+  locations: ['locations']
+}, Map);
