@@ -1,0 +1,7 @@
+.clockListContainer {
+  height: auto;
+  min-height: 40vh;
+  width: 100vw;
+  padding: 1%;
+  background: #5F4F5F;
+}

@@ -30,6 +30,32 @@ aside p {
 
 .buttonContainer {
   height: auto;
-  width: 100%;
+  width: auto;
+  margin: 0 auto;
   text-align: center;
+}
+
+.saveButton {
+  background: #FF4942;
+  color: #FFF;
+  height: 60px;
+  width: 130px;
+  margin-right: 20px;
+  border: none;
+  border-radius: 2px;
+  outline: none;
+  font-size: 1rem;
+  text-transform: uppercase;
+}
+
+.button {
+  background: #5F4F5F;
+  color: #FFF;
+  height: 60px;
+  width: 130px;
+  border: none;
+  border-radius: 2px;
+  outline: none;
+  font-size: 1rem;
+  text-transform: uppercase;
 }

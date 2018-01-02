@@ -1,0 +1,12 @@
+.clockPanel {
+  background: #FEFEFE;
+  height: 250px;
+  width: 30%;
+  margin: 5px;
+  padding: 20px;
+  border: 2px solid black;
+  border-radius: 3px;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}

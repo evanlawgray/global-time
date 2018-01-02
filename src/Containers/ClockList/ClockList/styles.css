@@ -1,0 +1,20 @@
+.clockList {
+  height: auto;
+  min-height: 300px;
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+.placeholder {
+  color: #FFF;
+  font-size: 2rem;
+  font-weight: lighter;
+  font-style: italic;
+  letter-spacing: 2px;
+  margin: 0 auto;
+}

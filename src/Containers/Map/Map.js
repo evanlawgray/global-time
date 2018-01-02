@@ -63,10 +63,6 @@ class Map extends Component {
         });
 
         google.maps.event.addListener(newMarker, 'click', () => {
-          const form = document.createElement('form');
-          form.appendChild(document.createElement('input'));
-          form.setAttribute('id', 'form');
-
           infoWindow.open(map, newMarker);
           this.setState({infoWindowOpen: true})
         });
@@ -98,9 +94,19 @@ class Map extends Component {
           </div>
 
           <div className={styles.buttonContainer}>
-            <button onClick={() => this.saveMarker()}>Save Marker</button>
+            <button
+              onClick={() => this.saveMarker()}
+              className={styles.saveButton}
+            >
+              Save
+            </button>
 
-            <button onClick={() => this.clearMarker()}>Clear Marker</button>
+            <button
+              onClick={() => this.clearMarker()}
+              className={styles.button}
+            >
+              Clear
+            </button>
           </div>
         </aside>
 
@@ -113,11 +119,10 @@ class Map extends Component {
           <input
             id="placeInput"
             type="text"
-            value={this.state.location}
+            value={this.state.locationName}
             onChange={(e) => this.setState({locationName: e.target.value})}
           />
         </form>
-
       </div>
     )
   }
